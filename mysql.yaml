@@ -1,0 +1,119 @@
+#Begin: Configmap
+#data source: https://www.kaggle.com/luiscorter/netflix-original-films-imdb-scores
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-deployment-init-configmap
+data:
+  mysql-init.sql: |
+    CREATE TABLE `movie` (
+      `movie_name` VARCHAR(45) NOT NULL,
+      `genre`  VARCHAR(45),
+      `language` VARCHAR(30),
+      PRIMARY KEY (`movie_name`)
+    );
+
+    CREATE TABLE `favourite` (
+      `movie_name` VARCHAR(45) NOT NULL,
+      `genre` VARCHAR(45) NOT NULL,
+      `count` BIGINT,
+       PRIMARY KEY (`movie_name`)
+    );
+
+    
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Enter the Anime', 'Documentary', 'English/Japanese');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Searching for Sheela', 'Documentary', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('After the Raid', 'Documentary', 'Spanish');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('After Maria', 'Documentary', 'English/Spanish');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Out of Many', 'Documentary', 'English');
+
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Dark Forces', 'Thriller','Spanish');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Rebirth', 'Thriller','English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Clinical', 'Thriller','English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Dangerous Lies', 'Thriller','English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Hold the Dark', 'Thriller','English');
+   
+
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Leyla Everlasting', 'Comedy', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Seriously Single', 'Comedy', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('The Misadventures of Hedi and Cokeman', 'Comedy', 'French');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('5 Star Christmas', 'Comedy', 'Italian');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Take the 10', 'Comedy', 'English');
+
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Point Blank', 'Action', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('The Do-Over', 'Action', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('6 Underground', 'Action', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Spenser Confidential', 'Action', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Polar', 'Action', 'English');
+
+    INSERT INTO movie (movie_name, genre, language) VALUES ('The Forest of Love', 'Drama', 'Japanese');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Uncorked', 'Drama', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Irreplaceable You', 'Drama', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Street Flow', 'Drama', 'French');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('All Together Now', 'Drama', 'English');
+
+    INSERT INTO movie (movie_name, genre, language) VALUES ('I Am the Pretty Thing That Lives in the House', 'Horror', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Rattlesnake', 'Horror', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Nobody Sleeps in the Woods Tonight', 'Horror', 'Polish');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('Things Heard & Seen', 'Horror', 'English');
+    INSERT INTO movie (movie_name, genre, language) VALUES ('In the Tall Grass', 'Horror', 'English');
+
+
+
+
+
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: my-mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-mysql
+  template:
+    metadata:
+      labels:
+        app: my-mysql
+    spec:
+      # Mount the configmap volume
+      # This is an excerpt of deployment.spec.template.spec
+      volumes:
+        - name: init-volume
+          configMap:
+            name: mysql-deployment-init-configmap
+      containers:
+        - name: my-mysql
+          image: mysql
+          volumeMounts:
+            - name: init-volume
+              mountPath: /docker-entrypoint-initdb.d/
+          # Set required environment variables to initialize the container
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "mysecretpw"
+            - name: MYSQL_DATABASE
+              value: "popular"
+          ports:
+            - containerPort: 33060
+
+---
+#Begin: Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-mysql-service
+spec:
+  selector:
+    app: my-mysql
+  ports:
+    - name: mysql-xproto
+      protocol: TCP
+      port: 33060
+      targetPort: 33060
+#End: Service
