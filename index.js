@@ -29,7 +29,7 @@ let options = optionparser
 	// Database options
 	.option('--mysql-host <host>', 'MySQL host', 'my-app-mysql-service')
 	.option('--mysql-port <port>', 'MySQL port', 33060)
-	.option('--mysql-schema <db>', 'MySQL Schema/database', 'favourite')
+	.option('--mysql-schema <db>', 'MySQL Schema/database', 'popular')
 	.option('--mysql-username <username>', 'MySQL username', 'root')
 	.option('--mysql-password <password>', 'MySQL password', 'mysecretpw')
 	// Misc
@@ -187,7 +187,7 @@ function sendResponse(res, html, cachedResult) {
 
 // Get list of movies (from cache or db)
 async function getMovies() {
-	const key = 'movies'
+	const key = 'movie'
 	let cachedata = await getFromCache(key)
 
 	if (cachedata) {
@@ -209,27 +209,27 @@ async function getMovies() {
 	}
 }
 
-// Get favourite movies (from db only)
+// Get favourite movie (from db only)
 async function getFavourite(maxCount) {
 	const query = "SELECT movie_name, count FROM favourite ORDER BY count DESC LIMIT ?"
 	return (await executeQuery(query, [maxCount]))
 		.fetchAll()
-		.map(row => ({ movie: row[0], count: row[1] }))
+		.map(row => ({ movie_name: row[0], count: row[1] }))
 }
 
 // Return HTML for start page
 app.get("/", (req, res) => {
 	const topX = 10;
 	Promise.all([getMovies(), getFavourite(topX)]).then(values => {
-		const movies = values[0]
+		const movie = values[0]
 		const favourite = values[1]
 
-		const moviesHtml = movies.result
-			.map(m => `<a href='movies/${m}'>${m}</a>`)
+		const moviesHtml = movie.result
+			.map(m => `<a href='movie/${m}'>${m}</a>`)
 			.join(", ")
 
 		const favouriteHtml = favourite
-			.map(pop => `<li> <a href='movies/${pop.movie}'>${pop.movie}</a> (${pop.count} views) </li>`)
+			.map(pop => `<li> <a href='movie/${pop.movie_name}'>${pop.movie_name}</a> (${pop.count} views) </li>`)
 			.join("\n")
 
 		const html = `
@@ -240,7 +240,7 @@ app.get("/", (req, res) => {
 			<h1>All Movies</h1>
 			<p> ${moviesHtml} </p>
 		`
-		sendResponse(res, html, movies.cached)
+		sendResponse(res, html, movie.cached)
 	})
 })
 
@@ -248,9 +248,9 @@ app.get("/", (req, res) => {
 // Get a specific movie (from cache or DB)
 // -------------------------------------------------------
 
-async function getMovie(movie) {
+async function getMovie(movie_name) {
 	const query = "SELECT movie_name, genre, language FROM movie WHERE movie_name = ?"
-	const key = 'movie_' + movie
+	const key = 'movie_' + movie_name
 	let cachedata = await getFromCache(key)
 
 	if (cachedata) {
@@ -259,9 +259,9 @@ async function getMovie(movie) {
 	} else {
 		console.log(`Cache miss for key=${key}, querying database`)
 
-		let data = (await executeQuery(query, [movie])).fetchOne()
+		let data = (await executeQuery(query, [movie_name])).fetchOne()
 		if (data) {
-			let result = { movie: data[0], genre: data[1], language: data[2] }
+			let result = { movie_name: data[0], genre: data[1], language: data[2] }
 			console.log(`Got result=${result}, storing in cache`)
 			if (memcached)
 				await memcached.set(key, result, cacheTimeSecs);
@@ -273,17 +273,17 @@ async function getMovie(movie) {
 }
 
 app.get("/movie/:movie_name", (req, res) => {
-	let movie = req.params["movie_name"]
+	let movie_name = req.params["movie_name"]
 
 	// Send the tracking message to Kafka
 	sendTrackingMessage({
-		movie,
+		movie_name,
 		timestamp: Math.floor(new Date() / 1000)
 	}).then(() => console.log("Sent to kafka"))
 		.catch(e => console.log("Error sending to kafka", e))
 
 	// Send reply to browser
-	getMovie(movie).then(data => {
+	getMovie(movie_name).then(data => {
 		sendResponse(res, `<h1>${data.movie_name}</h1><p>${data.genre}</p><p>${data.language}</p>`,
 			data.cached
 		)
@@ -299,3 +299,4 @@ app.get("/movie/:movie_name", (req, res) => {
 app.listen(options.port, function () {
 	console.log("Node app is running at http://localhost:" + options.port)
 });
+
