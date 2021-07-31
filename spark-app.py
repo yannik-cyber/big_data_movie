@@ -30,7 +30,7 @@ kafkaMessages = spark \
 # Define schema of tracking data
 
 trackingMessageSchema = StructType() \
-    .add("movie", StringType()) \
+    .add("movie_name", StringType()) \
     .add("timestamp", IntegerType())
 
 
@@ -50,7 +50,7 @@ trackingMessages = kafkaMessages.select(
     # Select all JSON fields
     column("json.*")
 ) \
-    .withColumnRenamed('json.movie', 'movie') \
+    .withColumnRenamed('json.movie_name', 'movie_name') \
     .withWatermark("parsed_timestamp", windowDuration)
 
 
@@ -61,7 +61,7 @@ favourite = trackingMessages.groupBy(
         windowDuration,
         slidingDuration
     ),
-    column("movie")
+    column("movie_name")
 ).count().withColumnRenamed('count', 'views')
 
 
@@ -87,9 +87,9 @@ def saveToDatabase(batchDataframe, batchId):
         for row in iterator:
             # Run upsert (insert or update existing)
             sql = session.sql("INSERT INTO favourite "
-                              "(movie, count) VALUES (?, ?) "
+                              "(movie_name, count) VALUES (?, ?) "
                               "ON DUPLICATE KEY UPDATE count=?")
-            sql.bind(row.movie, row.views, row.views).execute()
+            sql.bind(row.movie_name, row.views, row.views).execute()
 
         session.close()
 
@@ -107,3 +107,4 @@ dbInsertStream = favourite.writeStream \
 
 # Wait for termination
 spark.streams.awaitAnyTermination()
+
