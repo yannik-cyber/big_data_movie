@@ -82,7 +82,7 @@ def saveToDatabase(batchDataframe, batchId):
     def save_to_db(iterator):
         # Connect to database and use schema
         session = mysqlx.get_session(dbOptions)
-        session.sql("USE favourite").execute()
+        session.sql("USE popular").execute()
 
         for row in iterator:
             # Run upsert (insert or update existing)
