@@ -6,62 +6,50 @@ metadata:
   name: mysql-deployment-init-configmap
 data:
   mysql-init.sql: |
-    CREATE TABLE `movie` (
-      `movie_name` VARCHAR(100) NOT NULL,
+    CREATE TABLE `movies` (
+      `movie` VARCHAR(100) NOT NULL,
       `genre`  VARCHAR(45),
       `language` VARCHAR(30),
-      PRIMARY KEY (`movie_name`)
+      PRIMARY KEY (`movie`)
     );
 
-    CREATE TABLE `favourite` (
-      `movie_name` VARCHAR(100) NOT NULL,
+    CREATE TABLE `popular` (
+      `movie` VARCHAR(100) NOT NULL,
       `genre` VARCHAR(45) NOT NULL,
       `count` BIGINT,
-       PRIMARY KEY (`movie_name`)
+       PRIMARY KEY (`movie`)
     );
 
-    
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Enter_the_Anime', 'Documentary', 'English/Japanese');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Searching_for_Sheela', 'Documentary', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('After_the_Raid', 'Documentary', 'Spanish');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('After_Maria', 'Documentary', 'English/Spanish');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Out_of_Many', 'Documentary', 'English');
-
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Dark_Forces', 'Thriller','Spanish');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Rebirth', 'Thriller','English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Clinical', 'Thriller','English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Dangerous_Lies', 'Thriller','English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Hold_the_Dark', 'Thriller','English');
-   
-
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Leyla_Everlasting', 'Comedy', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Seriously_Single', 'Comedy', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('The_Misadventures_of_Hedi_and_Cokeman', 'Comedy', 'French');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('5_Star_Christmas', 'Comedy', 'Italian');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Take_the_10', 'Comedy', 'English');
-
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Point_Blank', 'Action', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('The_Do-Over', 'Action', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('6_Underground', 'Action', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Spenser_Confidential', 'Action', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Polar', 'Action', 'English');
-
-    INSERT INTO movie (movie_name, genre, language) VALUES ('The_Forest_of_Love', 'Drama', 'Japanese');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Uncorked', 'Drama', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Irreplaceable_You', 'Drama', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Street_Flow', 'Drama', 'French');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('All_Together_Now', 'Drama', 'English');
-
-    INSERT INTO movie (movie_name, genre, language) VALUES ('I_Am_the_Pretty_Thing_That_Lives_in_the_House', 'Horror', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Rattlesnake', 'Horror', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Nobody_Sleeps_in_the_Woods_Tonight', 'Horror', 'Polish');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('Things_Heard_&_Seen', 'Horror', 'English');
-    INSERT INTO movie (movie_name, genre, language) VALUES ('In_the_Tall_Grass', 'Horror', 'English');
-
-
-
-
-
+    INSERT INTO movies (movie, genre, language) VALUES ('Enter_the_Anime', 'Documentary', 'English/Japanese');
+    INSERT INTO movies (movie, genre, language) VALUES ('Searching_for_Sheela', 'Documentary', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('After_the_Raid', 'Documentary', 'Spanish');
+    INSERT INTO movies (movie, genre, language) VALUES ('After_Maria', 'Documentary', 'English/Spanish');
+    INSERT INTO movies (movie, genre, language) VALUES ('Out_of_Many', 'Documentary', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Dark_Forces', 'Thriller','Spanish');
+    INSERT INTO movies (movie, genre, language) VALUES ('Rebirth', 'Thriller','English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Clinical', 'Thriller','English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Dangerous_Lies', 'Thriller','English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Hold_the_Dark', 'Thriller','English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Leyla_Everlasting', 'Comedy', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Seriously_Single', 'Comedy', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('The_Misadventures_of_Hedi_and_Cokeman', 'Comedy', 'French');
+    INSERT INTO movies (movie, genre, language) VALUES ('5_Star_Christmas', 'Comedy', 'Italian');
+    INSERT INTO movies (movie, genre, language) VALUES ('Take_the_10', 'Comedy', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Point_Blank', 'Action', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('The_Do-Over', 'Action', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('6_Underground', 'Action', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Spenser_Confidential', 'Action', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Polar', 'Action', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('The_Forest_of_Love', 'Drama', 'Japanese');
+    INSERT INTO movies (movie, genre, language) VALUES ('Uncorked', 'Drama', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Irreplaceable_You', 'Drama', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Street_Flow', 'Drama', 'French');
+    INSERT INTO movies (movie, genre, language) VALUES ('All_Together_Now', 'Drama', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('I_Am_the_Pretty_Thing_That_Lives_in_the_House', 'Horror', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Rattlesnake', 'Horror', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('Nobody_Sleeps_in_the_Woods_Tonight', 'Horror', 'Polish');
+    INSERT INTO movies (movie, genre, language) VALUES ('Things_Heard_&_Seen', 'Horror', 'English');
+    INSERT INTO movies (movie, genre, language) VALUES ('In_the_Tall_Grass', 'Horror', 'English');
 
 
 ---
