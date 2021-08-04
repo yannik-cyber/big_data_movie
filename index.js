@@ -8,7 +8,7 @@ const express = require('express')
 
 const app = express()
 const cacheTimeSecs = 15
-//const numberOfMissions = 30
+const numberOfMovies = 30
 
 // -------------------------------------------------------
 // Command-line options
@@ -135,24 +135,6 @@ async function sendTrackingMessage(data) {
 // HTML helper to send a response to the client
 // -------------------------------------------------------
 
-//-------------------------------------------------------------------------------------
-// Changes 14.06.2021
-//-------------------------------------------------------------------------------------
-// Deletion of <script> section containing fetchRandomMissions()
-// Changed header h1
-// Deletion of <p> section
-// getMovies() getFavourite() verändert
-// Changing SQL Queries for getMovies() und getFavourite()
-// 
-// 
-// 
-// line 251-254 maybe adjust genre in Query for getMovie()
-// line 275 - what is the string statement in the brackets used for?
-//
-//
-
-
-
 function sendResponse(res, html, cachedResult) {
 	res.send(`<!DOCTYPE html>
 		<html lang="en">
@@ -161,12 +143,24 @@ function sendResponse(res, html, cachedResult) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>Big Data Use-Case Demo</title>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
-			
+			<script>
+				function fetchRandomMovies() {
+					const maxRepetitions = Math.floor(Math.random() * 200)
+					document.getElementById("out").innerText = "Fetching " + maxRepetitions + " random movies, see console output"
+					for(var i = 0; i < maxRepetitions; ++i) {
+						const movieId = Math.floor(Math.random() * ${numberOfMovies})
+						console.log("Fetching movie id " + movieId)
+						fetch("/movies/sts-" + movieId, {cache: 'no-cache'})
+					}
+				}
+			</script>
 		</head>
-
 		<body>
-			<h1>Movie Recommendation System</h1>
-			
+			<h1>Big Data Use Case Demo</h1>
+			<p>
+				<a href="javascript: fetchRandomMovies();">Randomly fetch some movies</a>
+				<span id="out"></span>
+			</p>
 			${html}
 			<hr>
 			<h2>Information about the generated page</h4>
@@ -187,7 +181,7 @@ function sendResponse(res, html, cachedResult) {
 
 // Get list of movies (from cache or db)
 async function getMovies() {
-	const key = 'movie'
+	const key = 'movies'
 	let cachedata = await getFromCache(key)
 
 	if (cachedata) {
@@ -195,7 +189,7 @@ async function getMovies() {
 		return { result: cachedata, cached: true }
 	} else {
 		console.log(`Cache miss for key=${key}, querying database`)
-		let executeResult = await executeQuery("SELECT movie_name FROM movie", [])
+		let executeResult = await executeQuery("SELECT movie FROM movies", [])
 		let data = executeResult.fetchAll()
 		if (data) {
 			let result = data.map(row => row[0])
@@ -204,43 +198,43 @@ async function getMovies() {
 				await memcached.set(key, result, cacheTimeSecs);
 			return { result, cached: false }
 		} else {
-			throw "No movie data found"
+			throw "No movies data found"
 		}
 	}
 }
 
-// Get favourite movie (from db only)
-async function getFavourite(maxCount) {
-	const query = "SELECT movie_name, count FROM favourite ORDER BY count DESC LIMIT ?"
+// Get popular movies (from db only)
+async function getpopular(maxCount) {
+	const query = "SELECT movie, count FROM popular ORDER BY count DESC LIMIT ?"
 	return (await executeQuery(query, [maxCount]))
 		.fetchAll()
-		.map(row => ({ movie_name: row[0], count: row[1] }))
+		.map(row => ({ movie: row[0], count: row[1] }))
 }
 
 // Return HTML for start page
 app.get("/", (req, res) => {
 	const topX = 10;
-	Promise.all([getMovies(), getFavourite(topX)]).then(values => {
-		const movie = values[0]
-		const favourite = values[1]
+	Promise.all([getMovies(), getpopular(topX)]).then(values => {
+		const movies = values[0]
+		const popular = values[1]
 
-		const moviesHtml = movie.result
-			.map(m => `<a href='movie/${m}'>${m}</a>`)
+		const moviesHtml = movies.result
+			.map(m => `<a href='movies/${m}'>${m}</a>`)
 			.join(", ")
 
-		const favouriteHtml = favourite
-			.map(pop => `<li> <a href='movie/${pop.movie_name}'>${pop.movie_name}</a> (${pop.count} views) </li>`)
+		const popularHtml = popular
+			.map(pop => `<li> <a href='movies/${pop.movie}'>${pop.movie}</a> (${pop.count} views) </li>`)
 			.join("\n")
 
 		const html = `
 			<h1>Top ${topX} Movies</h1>		
 			<p>
-				<ol style="margin-left: 2em;"> ${favouriteHtml} </ol> 
+				<ol style="margin-left: 2em;"> ${popularHtml} </ol> 
 			</p>
 			<h1>All Movies</h1>
 			<p> ${moviesHtml} </p>
 		`
-		sendResponse(res, html, movie.cached)
+		sendResponse(res, html, movies.cached)
 	})
 })
 
@@ -248,9 +242,9 @@ app.get("/", (req, res) => {
 // Get a specific movie (from cache or DB)
 // -------------------------------------------------------
 
-async function getMovie(movie_name) {
-	const query = "SELECT movie_name, genre, language FROM movie WHERE movie_name = ?"
-	const key = 'movie_' + movie_name
+async function getMovie(movie) {
+	const query = "SELECT movie FROM movies WHERE movies = ?"
+	const key = 'movie_' + movie
 	let cachedata = await getFromCache(key)
 
 	if (cachedata) {
@@ -259,9 +253,9 @@ async function getMovie(movie_name) {
 	} else {
 		console.log(`Cache miss for key=${key}, querying database`)
 
-		let data = (await executeQuery(query, [movie_name])).fetchOne()
+		let data = (await executeQuery(query, [movie])).fetchOne()
 		if (data) {
-			let result = { movie_name: data[0], genre: data[1], language: data[2] }
+			let result = { movie: data[0], heading: data[1], description: data[2] }
 			console.log(`Got result=${result}, storing in cache`)
 			if (memcached)
 				await memcached.set(key, result, cacheTimeSecs);
@@ -272,19 +266,20 @@ async function getMovie(movie_name) {
 	}
 }
 
-app.get("/movie/:movie_name", (req, res) => {
-	let movie_name = req.params["movie_name"]
+app.get("/movies/:movie", (req, res) => {
+	let movie = req.params["movie"]
 
 	// Send the tracking message to Kafka
 	sendTrackingMessage({
-		movie_name,
+		movie,
 		timestamp: Math.floor(new Date() / 1000)
 	}).then(() => console.log("Sent to kafka"))
 		.catch(e => console.log("Error sending to kafka", e))
 
 	// Send reply to browser
-	getMovie(movie_name).then(data => {
-		sendResponse(res, `<h1>${data.movie_name}</h1><p>${data.genre}</p><p>${data.language}</p>`,
+	getMovie(movie).then(data => {
+		sendResponse(res, `<h1>${data.movie}</h1><p>${data.heading}</p>` +
+			data.description.split("\n").map(p => `<p>${p}</p>`).join("\n"),
 			data.cached
 		)
 	}).catch(err => {
