@@ -8,7 +8,7 @@ dbSchema = 'popular'
 windowDuration = '5 minutes'
 slidingDuration = '1 minute'
 
-
+# Example Part 1
 # Create a spark session
 spark = SparkSession.builder \
     .appName("Structured Streaming").getOrCreate()
@@ -16,7 +16,7 @@ spark = SparkSession.builder \
 # Set log level
 spark.sparkContext.setLogLevel('WARN')
 
-
+# Example Part 2
 # Read messages from Kafka
 kafkaMessages = spark \
     .readStream \
@@ -28,12 +28,11 @@ kafkaMessages = spark \
     .load()
 
 # Define schema of tracking data
-
 trackingMessageSchema = StructType() \
-    .add("movie_name", StringType()) \
+    .add("movie", StringType()) \
     .add("timestamp", IntegerType())
 
-
+# Example Part 3
 # Convert value: binary -> JSON -> fields + parsed timestamp
 trackingMessages = kafkaMessages.select(
     # Extract 'value' from Kafka message (i.e., the tracking data)
@@ -50,23 +49,23 @@ trackingMessages = kafkaMessages.select(
     # Select all JSON fields
     column("json.*")
 ) \
-    .withColumnRenamed('json.movie_name', 'movie_name') \
+    .withColumnRenamed('json.movie', 'movie') \
     .withWatermark("parsed_timestamp", windowDuration)
 
-
-# Compute most favourite slides
-favourite = trackingMessages.groupBy(
+# Example Part 4
+# Compute most popular slides
+popular = trackingMessages.groupBy(
     window(
         column("parsed_timestamp"),
         windowDuration,
         slidingDuration
     ),
-    column("movie_name")
+    column("movie")
 ).count().withColumnRenamed('count', 'views')
 
-
+# Example Part 5
 # Start running the query; print running counts to the console
-consoleDump = favourite \
+consoleDump = popular \
     .writeStream \
     .trigger(processingTime=slidingDuration) \
     .outputMode("update") \
@@ -86,10 +85,10 @@ def saveToDatabase(batchDataframe, batchId):
 
         for row in iterator:
             # Run upsert (insert or update existing)
-            sql = session.sql("INSERT INTO favourite "
-                              "(movie_name, count) VALUES (?, ?) "
+            sql = session.sql("INSERT INTO popular "
+                              "(movie, count) VALUES (?, ?) "
                               "ON DUPLICATE KEY UPDATE count=?")
-            sql.bind(row.movie_name, row.views, row.views).execute()
+            sql.bind(row.movie, row.views, row.views).execute()
 
         session.close()
 
@@ -99,7 +98,7 @@ def saveToDatabase(batchDataframe, batchId):
 # Example Part 7
 
 
-dbInsertStream = favourite.writeStream \
+dbInsertStream = popular.writeStream \
     .trigger(processingTime=slidingDuration) \
     .outputMode("update") \
     .foreachBatch(saveToDatabase) \
