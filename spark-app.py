@@ -107,3 +107,4 @@ dbInsertStream = popular.writeStream \
 # Wait for termination
 spark.streams.awaitAnyTermination()
 
+
