@@ -141,26 +141,11 @@ function sendResponse(res, html, cachedResult) {
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>Big Data Use-Case Demo</title>
+			<title>Big Data Movie Project</title>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
-			<script>
-				function fetchRandomMovies() {
-					const maxRepetitions = Math.floor(Math.random() * 200)
-					document.getElementById("out").innerText = "Fetching " + maxRepetitions + " random movies, see console output"
-					for(var i = 0; i < maxRepetitions; ++i) {
-						const movieId = Math.floor(Math.random() * ${numberOfMovies})
-						console.log("Fetching movie id " + movieId)
-						fetch("/movies/sts-" + movieId, {cache: 'no-cache'})
-					}
-				}
-			</script>
 		</head>
 		<body>
 			<h1>Big Data Use Case Demo</h1>
-			<p>
-				<a href="javascript: fetchRandomMovies();">Randomly fetch some movies</a>
-				<span id="out"></span>
-			</p>
 			${html}
 			<hr>
 			<h2>Information about the generated page</h4>
@@ -243,7 +228,7 @@ app.get("/", (req, res) => {
 // -------------------------------------------------------
 
 async function getMovie(movie) {
-	const query = "SELECT movie FROM movies WHERE movies = ?"
+	const query = "SELECT movie, genre, language FROM movies WHERE movie = ?"
 	const key = 'movie_' + movie
 	let cachedata = await getFromCache(key)
 
@@ -255,7 +240,7 @@ async function getMovie(movie) {
 
 		let data = (await executeQuery(query, [movie])).fetchOne()
 		if (data) {
-			let result = { movie: data[0], heading: data[1], description: data[2] }
+			let result = { movie: data[0], genre: data[1], language: data[2] }
 			console.log(`Got result=${result}, storing in cache`)
 			if (memcached)
 				await memcached.set(key, result, cacheTimeSecs);
@@ -278,8 +263,15 @@ app.get("/movies/:movie", (req, res) => {
 
 	// Send reply to browser
 	getMovie(movie).then(data => {
-		sendResponse(res, `<h1>${data.movie}</h1><p>${data.heading}</p>` +
-			data.description.split("\n").map(p => `<p>${p}</p>`).join("\n"),
+		sendResponse(res, `
+		<a href='/'>
+				<h1>
+					Back
+		  		</h1>
+			</a>
+		<h1>${data.movie}</h1>
+		<p>Genre: ${data.genre}</p>
+		<p>Original Language: ${data.language}</p>`,
 			data.cached
 		)
 	}).catch(err => {
@@ -294,4 +286,5 @@ app.get("/movies/:movie", (req, res) => {
 app.listen(options.port, function () {
 	console.log("Node app is running at http://localhost:" + options.port)
 });
+
 
