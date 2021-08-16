@@ -4,11 +4,11 @@ Wir, das sind
 - Yannik Hubrich,
 - Philipp Becht,
 - Paula Hölterhoff,
-- Pascal Schmidt,
+- Pascal Schmidt (8133405),
 - Simon Wrigg (5874903), 
 
 haben im Rahmen der Vorlesungsreihe "Big Data" ein Movie Recommendation System hergestellt, welches dem Anwender nicht nur seine belibtesten Filme anzeigt, sondern auch, welches Genre dem Anwender am meisten gefällt.
-Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. Die Berechnung der beliebtesten Filme wird über XXX realisiert.
+Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. Die Berechnung der beliebtesten Filme wird über Spark realisiert. In einer mysql Datenbank werden alle Filme inklusive einer Beschreibung und eines Bildes gespeichert. Die Web-App wurde in der index.js gebaut.
 
 
 Um das Recommendation System zu starten, ist es zunächst notwendig die auf github abgelegte zip-Datei herunterzuladen und abzuspeichern.
