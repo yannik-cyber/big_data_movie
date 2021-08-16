@@ -1,6 +1,6 @@
 # Big Data Project
 
-*Einleitung*
+**Einleitung**
 Wir, das sind
 - Yannik Hubrich,
 - Philipp Becht,
