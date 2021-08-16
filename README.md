@@ -1,11 +1,12 @@
 # Big Data Project
 
 Wir, das sind
-- Yannik Hubrich
-- Philipp Becht
-- Paula Hölterhoff
-- Pascal Schmidt
+- Yannik Hubrich,
+- Philipp Becht,
+- Paula Hölterhoff,
+- Pascal Schmidt,
 - Simon Wrigg (5874903), 
+
 haben im Rahmen der Vorlesungsreihe "Big Data" ein Movie Recommendation System hergestellt, welches dem Anwender nicht nur seine belibtesten Filme anzeigt, sondern auch, welches Genre dem Anwender am meisten gefällt.
 Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. Die Berechnung der beliebtesten Filme wird über XXX realisiert.
 
@@ -23,10 +24,13 @@ Stellen Sie vorher sicher, dass sie die folgenden Prerequisites ausgeführt habe
 
 
 Bitte beachten Sie, dass Sie die folgenden Proxy-Einstellungen vornehmen müssen:
-1)
-2)
-3)
+1) Network Settings, Sock_Proxy erstellen mit IP: 127.0.0.1 und Port 5555
+2) Verbinden Sie sich mit diesem SSH: -D5555 yannik@185.102.93.248, PW: BigData_DSB19
+3) Geben Sie 192.168.49.2 in Ihrem Browser ein
 
+
+
+Mit 'skaffold delete' beenden Sie alle Kubernetes Ressourcen in diesem Projekt.
 
 Bei Rückfragen oder Problemen beim Ausführen unseres Projektes, helfen wir Ihnen gerne weiter!
 
