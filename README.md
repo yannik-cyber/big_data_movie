@@ -1,6 +1,7 @@
 # Big Data Project
 
 **Einleitung**
+**************
 Wir, das sind
 - Yannik Hubrich,
 - Philipp Becht,
@@ -13,6 +14,8 @@ Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. 
 
 
 
+**Technische Komponenten**
+**************************
 
 
 
@@ -40,8 +43,8 @@ Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. 
 
 
 
-
-
+**Hinweise zur Ausführung**
+***************************
 
 Um das Recommendation System zu starten, ist es zunächst notwendig die auf github abgelegte zip-Datei herunterzuladen und abzuspeichern.
 Mithilfe einer shell muss dann zum Ordner hinnavigiert werden, wo das Projekt abgespeichert wurde.
@@ -64,5 +67,11 @@ Bitte beachten Sie, dass Sie die folgenden Proxy-Einstellungen vornehmen müssen
 
 Mit 'skaffold delete' beenden Sie alle Kubernetes Ressourcen in diesem Projekt.
 
+
+
+
+
+**Sonstiges**
+*************
 Bei Rückfragen oder Problemen beim Ausführen unseres Projektes, helfen wir Ihnen gerne weiter!
 
