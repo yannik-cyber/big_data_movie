@@ -3,9 +3,9 @@
 **Einleitung**  
 
 Wir, das sind
-- Yannik Hubrich,
-- Philipp Becht,
-- Paula Hölterhoff,
+- Yannik Hubrich (2249266),
+- Philipp Becht (9443009),
+- Paula Hölterhoff ,
 - Pascal Schmidt (8133405),
 - Simon Wrigg (5874903), 
 
@@ -17,6 +17,9 @@ Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. 
 **Technische Komponenten**
 
 
+Um von einem Browser auf den Webserver zu zugreifen, wird Kubernetes (nginx????) als Load Balancer verwendet. Die Webanwendung, in der die Filme und die jeweiligen Filmempfehlungen angezeigt werden, ist eine Node.js App. Diese ist zum einen mit einem Cache Server und zum anderen mit einem Datenbanken Server verbunden. Es werden hierfür zwei Memchached-Server genutzt, in denen die Filmdaten nach einmaligem Aufruf gespeichert werden. Als Datenbank dient eine MySQL Datenbank. In dieser Datenbank sind zwei Tabellen gespeichert. Die Tabelle "Movies" beinhaltet die Filmdaten, die auf der Web-App ausgewählt bzw. dargestellt werden. In der "Popular"-Tabelle werden die vom User favourisierten Filme gespeichert. Ein Film gilt als favourisiert, sobald der Film häufig vom Nutzer ausgewählt wurde. Die genaue Berechnung der Favouriten und die Abstufung der Filme finden allerdings in der Spark Applikation statt.
+Für das Big Data Messaging wird Kafka verwendet. Die Node App wird durch Kafka.js mit Kafka verbunden. Um die Streamingdaten in der Spark App tatsächlich nutzen zu können, müssen die binären Daten aus Kafka in ein json Format konvertiert werden, sodass sie für die Spark App lesbar sind.
+Die Spark App schriebt die Aufrufdaten der Filme in die "Popular"-Tabelle, nachdem ein Batch berechnet wurde. Diese wird somit nach jedem Batch upgedated. Die Node.js App greift regelmäßig auf die popular Tabelle zu und gibt somit stets die beliebtesten Filme und Genres wieder.
 
 
 
