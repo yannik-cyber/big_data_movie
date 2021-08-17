@@ -1,4 +1,4 @@
-# Big Data Project - Movie Recommendation Project
+# Big Data Project - Movie Recommendation System
 
 **Einleitung**  
 
