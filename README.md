@@ -60,7 +60,7 @@ Stellen Sie vorher sicher, dass sie die folgenden Prerequisites ausgeführt habe
 3) minikube addons enable ingress
 4) helm repo add strimzi http://strimzi.io/charts/
 5) helm install my-kafka-operator strimzi/strimzi-kafka-operator
-6) kubectl apply -f ~/movie_use-case/changed_files/kafka-cluster-def.yaml
+6) kubectl apply -f ~/movie_use-case/kafka_cluster/kafka-cluster-def.yaml
 7) helm repo add stable https://charts.helm.sh/stable
 8) helm install --namespace=default --set hdfs.dataNode.replicas=1 --set yarn.nodeManager.replicas=1 --set hdfs.webhdfs.enabled=true my-hadoop-cluster stable/hadoop
 9) skaffold dev
