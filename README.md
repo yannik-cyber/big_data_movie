@@ -64,20 +64,20 @@ Um das Recommendation System zu starten, ist es zunächst notwendig die auf gith
 Mithilfe einer shell muss dann zum Ordner hinnavigiert werden, wo das Projekt abgespeichert wurde.
 
 Stellen Sie vorher sicher, dass sie die folgenden Prerequisites ausgeführt haben.
-1) minikube start
-3) minikube addons enable ingress
-4) helm repo add strimzi http://strimzi.io/charts/
-5) helm install my-kafka-operator strimzi/strimzi-kafka-operator
-6) kubectl apply -f ~/movie_use-case/kafka_cluster/kafka-cluster-def.yaml
-7) helm repo add stable https://charts.helm.sh/stable
-8) helm install --namespace=default --set hdfs.dataNode.replicas=1 --set yarn.nodeManager.replicas=1 --set hdfs.webhdfs.enabled=true my-hadoop-cluster stable/hadoop
-9) skaffold dev
+1) `minikube start`
+2) falls auf einem remote Server ausgeführt: `minikube addons enable ingress`
+3) `helm repo add strimzi http://strimzi.io/charts/`
+4) `helm install my-kafka-operator strimzi/strimzi-kafka-operator`
+5) `kubectl apply -f ~/movie_use-case/kafka_cluster/kafka-cluster-def.yaml`
+6) `helm repo add stable https://charts.helm.sh/stable`
+7) `helm install --namespace=default --set hdfs.dataNode.replicas=1 --set yarn.nodeManager.replicas=1 --set hdfs.webhdfs.enabled=true my-hadoop-cluster stable/hadoop`
+8) `skaffold dev`
 
 
 
 
 
-Mit 'skaffold delete' beenden Sie alle Kubernetes Ressourcen in diesem Projekt.
+Mit `skaffold delete` beenden Sie alle Kubernetes Ressourcen in diesem Projekt.
 
 
 *************
