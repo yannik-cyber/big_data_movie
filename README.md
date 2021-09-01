@@ -5,7 +5,7 @@
 Wir, das sind
 - Yannik Hubrich (2249266),
 - Philipp Becht (9443009),
-- Paula Hölterhoff ,
+- Paula Hölterhoff (9633299),
 - Pascal Schmidt (8133405),
 - Simon Wrigg (5874903), 
 
