@@ -1,0 +1,799 @@
+yannikhubrich@MacBook-Pro use-case % skaffold dev
+Listing files to watch...
+ - farberg/popular-slides
+ - farberg/popular-slides-spark
+Generating tags...
+ - farberg/popular-slides -> farberg/popular-slides:latest
+ - farberg/popular-slides-spark -> farberg/popular-slides-spark:latest
+Some taggers failed. Rerun with -vdebug for errors.
+Checking cache...
+ - farberg/popular-slides: Not found. Building
+ - farberg/popular-slides-spark: Not found. Building
+Starting build...
+Found [minikube] context, using local docker daemon.
+Building [farberg/popular-slides-spark]...
+Sending build context to Docker daemon  9.216kB
+Step 1/23 : FROM bitnami/spark:3.0.0
+3.0.0: Pulling from bitnami/spark
+522a7372a4ae: Pulling fs layer
+210cbb01f4a6: Pulling fs layer
+b2ff67dc0f62: Pulling fs layer
+97e3294d6b50: Pulling fs layer
+585563b7bcde: Pulling fs layer
+e96d8a466948: Pulling fs layer
+1e8499aaf0a2: Pulling fs layer
+268c0e5004ab: Pulling fs layer
+ae03ef5e5262: Pulling fs layer
+218e52eebb30: Pulling fs layer
+4aab61c918dd: Pulling fs layer
+b2ff67dc0f62: Waiting
+97e3294d6b50: Waiting
+585563b7bcde: Waiting
+e96d8a466948: Waiting
+1e8499aaf0a2: Waiting
+268c0e5004ab: Waiting
+ae03ef5e5262: Waiting
+218e52eebb30: Waiting
+4aab61c918dd: Waiting
+210cbb01f4a6: Verifying Checksum
+210cbb01f4a6: Download complete
+b2ff67dc0f62: Verifying Checksum
+b2ff67dc0f62: Download complete
+522a7372a4ae: Verifying Checksum
+522a7372a4ae: Download complete
+97e3294d6b50: Verifying Checksum
+97e3294d6b50: Download complete
+522a7372a4ae: Pull complete
+210cbb01f4a6: Pull complete
+585563b7bcde: Verifying Checksum
+585563b7bcde: Download complete
+1e8499aaf0a2: Verifying Checksum
+1e8499aaf0a2: Download complete
+268c0e5004ab: Verifying Checksum
+268c0e5004ab: Download complete
+ae03ef5e5262: Verifying Checksum
+ae03ef5e5262: Download complete
+b2ff67dc0f62: Pull complete
+218e52eebb30: Verifying Checksum
+218e52eebb30: Download complete
+97e3294d6b50: Pull complete
+e96d8a466948: Verifying Checksum
+e96d8a466948: Download complete
+4aab61c918dd: Verifying Checksum
+4aab61c918dd: Download complete
+585563b7bcde: Pull complete
+e96d8a466948: Pull complete
+1e8499aaf0a2: Pull complete
+268c0e5004ab: Pull complete
+ae03ef5e5262: Pull complete
+218e52eebb30: Pull complete
+4aab61c918dd: Pull complete
+Digest: sha256:4d64878d54810e543611e1b5c0ba4183f67d333cb35f8bf65a5d8c3807f333e5
+Status: Downloaded newer image for bitnami/spark:3.0.0
+ ---> 85d2b2c033a4
+Step 2/23 : LABEL maintainer="Dennis Pfisterer, http://dennis-pfisterer.de"
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 988d7455d3bf
+ ---> c024d04c27a7
+Step 3/23 : WORKDIR /app
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in de139543a8ce
+ ---> cb8da966b955
+Step 4/23 : ENV SPARK_VERSION "3.0.0"
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 16c0e4989b26
+ ---> a674c704a164
+Step 5/23 : ENV SPARK_KAFKA_DEPENDENCY "org.apache.spark:spark-sql-kafka-0-10_2.12:${SPARK_VERSION}"
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 31c289667054
+ ---> 56303569fc02
+Step 6/23 : ENV IVY_PACKAGE_DIR "/tmp/.ivy"
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 43973672dfeb
+ ---> a74cf2a52eb4
+Step 7/23 : USER root
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in d50bd3c8e107
+ ---> 4e8090c3e9c7
+Step 8/23 : RUN groupadd --gid 1001 spark
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 3d4908c84941
+ ---> 896c13167401
+Step 9/23 : RUN useradd --uid 1001 --gid spark --shell /bin/bash spark
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in c6ce9532671f
+ ---> f68f573e5943
+Step 10/23 : RUN apt-get update && apt-get install -y zip
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 6e12232bfdc9
+Get:1 http://deb.debian.org/debian buster InRelease [121 kB]
+Get:2 http://security.debian.org buster/updates InRelease [65.4 kB]
+Get:3 http://deb.debian.org/debian buster/main amd64 Packages [10.7 MB]
+Get:4 http://security.debian.org buster/updates/main amd64 Packages [367 kB]
+Fetched 11.3 MB in 10s (1124 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  unzip
+The following NEW packages will be installed:
+  unzip zip
+0 upgraded, 2 newly installed, 0 to remove and 23 not upgraded.
+Need to get 406 kB of archives.
+After this operation, 1202 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 unzip amd64 6.0-23+deb10u2 [172 kB]
+Get:2 http://deb.debian.org/debian buster/main amd64 zip amd64 3.0-11+b1 [234 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 406 kB in 0s (1501 kB/s)
+Selecting previously unselected package unzip.
+(Reading database ... 6983 files and directories currently installed.)
+Preparing to unpack .../unzip_6.0-23+deb10u2_amd64.deb ...
+Unpacking unzip (6.0-23+deb10u2) ...
+Selecting previously unselected package zip.
+Preparing to unpack .../zip_3.0-11+b1_amd64.deb ...
+Unpacking zip (3.0-11+b1) ...
+Setting up unzip (6.0-23+deb10u2) ...
+Setting up zip (3.0-11+b1) ...
+ ---> 508c6d6e37f9
+Step 11/23 : RUN chown spark:spark /app/
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 073defadfad9
+ ---> 15952c764d25
+Step 12/23 : USER spark
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 3290d695262e
+ ---> 7ba7b44baa38
+Step 13/23 : WORKDIR /app
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 3be70e5f085a
+ ---> 28a16b9012be
+Step 14/23 : RUN touch /tmp/empty.py && spark-submit --verbose  --conf "spark.jars.ivy=${IVY_PACKAGE_DIR}"      --packages "${SPARK_KAFKA_DEPENDENCY}"  /tmp/empty.py && rm -f /tmp/empty.py
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 6b284e105a25
+Using properties file: null
+Parsed arguments:
+  master                  local[*]
+  deployMode              null
+  executorMemory          null
+  executorCores           null
+  totalExecutorCores      null
+  propertiesFile          null
+  driverMemory            null
+  driverCores             null
+  driverExtraClassPath    null
+  driverExtraLibraryPath  null
+  driverExtraJavaOptions  null
+  supervise               false
+  queue                   null
+  numExecutors            null
+  files                   null
+  pyFiles                 null
+  archives                null
+  mainClass               null
+  primaryResource         file:/tmp/empty.py
+  name                    empty.py
+  childArgs               []
+  jars                    null
+  packages                org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0
+  packagesExclusions      null
+  repositories            null
+  verbose                 true
+
+Spark properties used, including those specified through
+ --conf and those from the properties file null:
+  (spark.jars.ivy,/tmp/.ivy)
+
+    
+Ivy Default Cache set to: /tmp/.ivy/cache
+The jars for the packages stored in: /tmp/.ivy/jars
+:: loading settings :: url = jar:file:/opt/bitnami/spark/jars/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-ad14594f-e0c9-4cb0-81bd-d2120d975025;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.12;3.0.0 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.0.0 in central
+        found org.apache.kafka#kafka-clients;2.4.1 in central
+        found com.github.luben#zstd-jni;1.4.4-3 in central
+        found org.lz4#lz4-java;1.7.1 in central
+        found org.xerial.snappy#snappy-java;1.1.7.5 in central
+        found org.slf4j#slf4j-api;1.7.30 in central
+        found org.spark-project.spark#unused;1.0.0 in central
+        found org.apache.commons#commons-pool2;2.6.2 in central
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.0.0/spark-sql-kafka-0-10_2.12-3.0.0.jar ...
+        [SUCCESSFUL ] org.apache.spark#spark-sql-kafka-0-10_2.12;3.0.0!spark-sql-kafka-0-10_2.12.jar (181ms)
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.12/3.0.0/spark-token-provider-kafka-0-10_2.12-3.0.0.jar ...
+        [SUCCESSFUL ] org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.0.0!spark-token-provider-kafka-0-10_2.12.jar (39ms)
+downloading https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/2.4.1/kafka-clients-2.4.1.jar ...
+        [SUCCESSFUL ] org.apache.kafka#kafka-clients;2.4.1!kafka-clients.jar (1388ms)
+downloading https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.6.2/commons-pool2-2.6.2.jar ...
+        [SUCCESSFUL ] org.apache.commons#commons-pool2;2.6.2!commons-pool2.jar (81ms)
+downloading https://repo1.maven.org/maven2/org/spark-project/spark/unused/1.0.0/unused-1.0.0.jar ...
+        [SUCCESSFUL ] org.spark-project.spark#unused;1.0.0!unused.jar (36ms)
+downloading https://repo1.maven.org/maven2/com/github/luben/zstd-jni/1.4.4-3/zstd-jni-1.4.4-3.jar ...
+        [SUCCESSFUL ] com.github.luben#zstd-jni;1.4.4-3!zstd-jni.jar (737ms)
+downloading https://repo1.maven.org/maven2/org/lz4/lz4-java/1.7.1/lz4-java-1.7.1.jar ...
+        [SUCCESSFUL ] org.lz4#lz4-java;1.7.1!lz4-java.jar (315ms)
+downloading https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.7.5/snappy-java-1.1.7.5.jar ...
+        [SUCCESSFUL ] org.xerial.snappy#snappy-java;1.1.7.5!snappy-java.jar(bundle) (583ms)
+downloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar ...
+        [SUCCESSFUL ] org.slf4j#slf4j-api;1.7.30!slf4j-api.jar (64ms)
+:: resolution report :: resolve 14442ms :: artifacts dl 3604ms
+        :: modules in use:
+        com.github.luben#zstd-jni;1.4.4-3 from central in [default]
+        org.apache.commons#commons-pool2;2.6.2 from central in [default]
+        org.apache.kafka#kafka-clients;2.4.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.12;3.0.0 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.0.0 from central in [default]
+        org.lz4#lz4-java;1.7.1 from central in [default]
+        org.slf4j#slf4j-api;1.7.30 from central in [default]
+        org.spark-project.spark#unused;1.0.0 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.7.5 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   9   |   9   |   9   |   0   ||   9   |   9   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-ad14594f-e0c9-4cb0-81bd-d2120d975025
+        confs: [default]
+        9 artifacts copied, 0 already retrieved (10393kB/533ms)
+21/06/11 10:57:51 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Main class:
+org.apache.spark.deploy.PythonRunner
+Arguments:
+file:/tmp/empty.py
+file:///tmp/.ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.0.0.jar,file:///tmp/.ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.0.0.jar,file:///tmp/.ivy/jars/org.apache.kafka_kafka-clients-2.4.1.jar,file:///tmp/.ivy/jars/org.apache.commons_commons-pool2-2.6.2.jar,file:///tmp/.ivy/jars/org.spark-project.spark_unused-1.0.0.jar,file:///tmp/.ivy/jars/com.github.luben_zstd-jni-1.4.4-3.jar,file:///tmp/.ivy/jars/org.lz4_lz4-java-1.7.1.jar,file:///tmp/.ivy/jars/org.xerial.snappy_snappy-java-1.1.7.5.jar,file:///tmp/.ivy/jars/org.slf4j_slf4j-api-1.7.30.jar
+Spark config:
+(spark.jars.ivy,/tmp/.ivy)
+(spark.jars,*********(redacted))
+(spark.app.name,empty.py)
+(spark.submit.pyFiles,*********(redacted))
+(spark.files,*********(redacted))
+(spark.submit.deployMode,client)
+(spark.master,local[*])
+(spark.repl.local.jars,*********(redacted))
+Classpath elements:
+file:///tmp/.ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.0.0.jar
+file:///tmp/.ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.0.0.jar
+file:///tmp/.ivy/jars/org.apache.kafka_kafka-clients-2.4.1.jar
+file:///tmp/.ivy/jars/org.apache.commons_commons-pool2-2.6.2.jar
+file:///tmp/.ivy/jars/org.spark-project.spark_unused-1.0.0.jar
+file:///tmp/.ivy/jars/com.github.luben_zstd-jni-1.4.4-3.jar
+file:///tmp/.ivy/jars/org.lz4_lz4-java-1.7.1.jar
+file:///tmp/.ivy/jars/org.xerial.snappy_snappy-java-1.1.7.5.jar
+file:///tmp/.ivy/jars/org.slf4j_slf4j-api-1.7.30.jar
+
+
+log4j:WARN No appenders could be found for logger (org.apache.spark.util.ShutdownHookManager).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+ ---> 25f88e8d950a
+Step 15/23 : ADD --chown=spark:spark requirements.txt /app/
+ ---> e187bdefecdd
+Step 16/23 : RUN pip install --no-cache-dir -t /app/dependencies -r requirements.txt
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 98202980bfb9
+Collecting mysql-connector-python
+  Downloading mysql_connector_python-8.0.25-cp36-cp36m-manylinux1_x86_64.whl (25.4 MB)
+Collecting protobuf>=3.0.0
+  Downloading protobuf-3.17.3-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.0 MB)
+Collecting six>=1.9
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: six, protobuf, mysql-connector-python
+Successfully installed mysql-connector-python-8.0.25 protobuf-3.17.3 six-1.16.0
+ ---> 183cd573fa35
+Step 17/23 : WORKDIR /app/dependencies
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 6b81bdb82a52
+ ---> d661af760437
+Step 18/23 : RUN zip -r /app/dependencies.zip .
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 2b3dac1c92d5
+  adding: six.py (deflated 76%)
+  adding: mysql_connector_python-8.0.25.dist-info/ (stored 0%)
+  adding: mysql_connector_python-8.0.25.dist-info/RECORD (deflated 67%)
+  adding: mysql_connector_python-8.0.25.dist-info/LICENSE.txt (deflated 74%)
+  adding: mysql_connector_python-8.0.25.dist-info/METADATA (deflated 59%)
+  adding: mysql_connector_python-8.0.25.dist-info/top_level.txt (deflated 23%)
+  adding: mysql_connector_python-8.0.25.dist-info/REQUESTED (stored 0%)
+  adding: mysql_connector_python-8.0.25.dist-info/WHEEL (deflated 3%)
+  adding: mysql_connector_python-8.0.25.dist-info/INSTALLER (stored 0%)
+  adding: _mysqlxpb.cpython-36m-x86_64-linux-gnu.so (deflated 71%)
+  adding: protobuf-3.17.3-py3.6-nspkg.pth (deflated 49%)
+  adding: _mysql_connector.cpython-36m-x86_64-linux-gnu.so (deflated 71%)
+  adding: protobuf-3.17.3.dist-info/ (stored 0%)
+  adding: protobuf-3.17.3.dist-info/namespace_packages.txt (stored 0%)
+  adding: protobuf-3.17.3.dist-info/RECORD (deflated 65%)
+  adding: protobuf-3.17.3.dist-info/METADATA (deflated 63%)
+  adding: protobuf-3.17.3.dist-info/top_level.txt (stored 0%)
+  adding: protobuf-3.17.3.dist-info/WHEEL (deflated 22%)
+  adding: protobuf-3.17.3.dist-info/INSTALLER (stored 0%)
+  adding: google/ (stored 0%)
+  adding: google/protobuf/ (stored 0%)
+  adding: google/protobuf/any_pb2.py (deflated 66%)
+  adding: google/protobuf/message_factory.py (deflated 62%)
+  adding: google/protobuf/descriptor.py (deflated 76%)
+  adding: google/protobuf/__init__.py (deflated 48%)
+  adding: google/protobuf/message.py (deflated 66%)
+  adding: google/protobuf/util/ (stored 0%)
+  adding: google/protobuf/util/__init__.py (stored 0%)
+  adding: google/protobuf/util/json_format_proto3_pb2.py (deflated 93%)
+  adding: google/protobuf/util/__pycache__/ (stored 0%)
+  adding: google/protobuf/util/__pycache__/json_format_proto3_pb2.cpython-36.pyc (deflated 76%)
+  adding: google/protobuf/util/__pycache__/__init__.cpython-36.pyc (deflated 18%)
+  adding: google/protobuf/util/__pycache__/json_format_pb2.cpython-36.pyc (deflated 71%)
+  adding: google/protobuf/util/json_format_pb2.py (deflated 91%)
+  adding: google/protobuf/service.py (deflated 62%)
+  adding: google/protobuf/field_mask_pb2.py (deflated 63%)
+  adding: google/protobuf/reflection.py (deflated 54%)
+  adding: google/protobuf/struct_pb2.py (deflated 84%)
+  adding: google/protobuf/text_encoding.py (deflated 56%)
+  adding: google/protobuf/type_pb2.py (deflated 89%)
+  adding: google/protobuf/symbol_database.py (deflated 64%)
+  adding: google/protobuf/text_format.py (deflated 78%)
+  adding: google/protobuf/descriptor_pb2.py (deflated 92%)
+  adding: google/protobuf/descriptor_database.py (deflated 64%)
+  adding: google/protobuf/api_pb2.py (deflated 86%)
+  adding: google/protobuf/duration_pb2.py (deflated 68%)
+  adding: google/protobuf/pyext/ (stored 0%)
+  adding: google/protobuf/pyext/_message.cpython-36m-x86_64-linux-gnu.so (deflated 66%)
+  adding: google/protobuf/pyext/__init__.py (stored 0%)
+  adding: google/protobuf/pyext/cpp_message.py (deflated 50%)
+  adding: google/protobuf/pyext/__pycache__/ (stored 0%)
+  adding: google/protobuf/pyext/__pycache__/__init__.cpython-36.pyc (deflated 18%)
+  adding: google/protobuf/pyext/__pycache__/cpp_message.cpython-36.pyc (deflated 44%)
+  adding: google/protobuf/wrappers_pb2.py (deflated 87%)
+  adding: google/protobuf/source_context_pb2.py (deflated 64%)
+  adding: google/protobuf/empty_pb2.py (deflated 61%)
+  adding: google/protobuf/service_reflection.py (deflated 72%)
+  adding: google/protobuf/timestamp_pb2.py (deflated 68%)
+  adding: google/protobuf/proto_builder.py (deflated 60%)
+  adding: google/protobuf/internal/ (stored 0%)
+  adding: google/protobuf/internal/message_listener.py (deflated 52%)
+  adding: google/protobuf/internal/__init__.py (deflated 48%)
+  adding: google/protobuf/internal/well_known_types.py (deflated 73%)
+  adding: google/protobuf/internal/wire_format.py (deflated 65%)
+  adding: google/protobuf/internal/extension_dict.py (deflated 66%)
+  adding: google/protobuf/internal/type_checkers.py (deflated 73%)
+  adding: google/protobuf/internal/api_implementation.py (deflated 61%)
+  adding: google/protobuf/internal/enum_type_wrapper.py (deflated 62%)
+  adding: google/protobuf/internal/encoder.py (deflated 79%)
+  adding: google/protobuf/internal/containers.py (deflated 76%)
+  adding: google/protobuf/internal/__pycache__/ (stored 0%)
+  adding: google/protobuf/internal/__pycache__/__init__.cpython-36.pyc (deflated 16%)
+  adding: google/protobuf/internal/__pycache__/extension_dict.cpython-36.pyc (deflated 54%)
+  adding: google/protobuf/internal/__pycache__/wire_format.cpython-36.pyc (deflated 57%)
+  adding: google/protobuf/internal/__pycache__/enum_type_wrapper.cpython-36.pyc (deflated 57%)
+  adding: google/protobuf/internal/__pycache__/containers.cpython-36.pyc (deflated 68%)
+  adding: google/protobuf/internal/__pycache__/encoder.cpython-36.pyc (deflated 67%)
+  adding: google/protobuf/internal/__pycache__/api_implementation.cpython-36.pyc (deflated 46%)
+  adding: google/protobuf/internal/__pycache__/well_known_types.cpython-36.pyc (deflated 61%)
+  adding: google/protobuf/internal/__pycache__/python_message.cpython-36.pyc (deflated 60%)
+  adding: google/protobuf/internal/__pycache__/decoder.cpython-36.pyc (deflated 63%)
+  adding: google/protobuf/internal/__pycache__/type_checkers.cpython-36.pyc (deflated 59%)
+  adding: google/protobuf/internal/__pycache__/message_listener.cpython-36.pyc (deflated 51%)
+  adding: google/protobuf/internal/python_message.py (deflated 75%)
+  adding: google/protobuf/internal/_api_implementation.cpython-36m-x86_64-linux-gnu.so (deflated 64%)
+  adding: google/protobuf/internal/decoder.py (deflated 78%)
+  adding: google/protobuf/__pycache__/ (stored 0%)
+  adding: google/protobuf/__pycache__/empty_pb2.cpython-36.pyc (deflated 46%)
+  adding: google/protobuf/__pycache__/service_reflection.cpython-36.pyc (deflated 67%)
+  adding: google/protobuf/__pycache__/field_mask_pb2.cpython-36.pyc (deflated 47%)
+  adding: google/protobuf/__pycache__/descriptor.cpython-36.pyc (deflated 66%)
+  adding: google/protobuf/__pycache__/__init__.cpython-36.pyc (deflated 11%)
+  adding: google/protobuf/__pycache__/json_format.cpython-36.pyc (deflated 58%)
+  adding: google/protobuf/__pycache__/descriptor_pb2.cpython-36.pyc (deflated 76%)
+  adding: google/protobuf/__pycache__/duration_pb2.cpython-36.pyc (deflated 48%)
+  adding: google/protobuf/__pycache__/reflection.cpython-36.pyc (deflated 47%)
+  adding: google/protobuf/__pycache__/message_factory.cpython-36.pyc (deflated 51%)
+  adding: google/protobuf/__pycache__/struct_pb2.cpython-36.pyc (deflated 59%)
+  adding: google/protobuf/__pycache__/message.cpython-36.pyc (deflated 65%)
+  adding: google/protobuf/__pycache__/text_format.cpython-36.pyc (deflated 64%)
+  adding: google/protobuf/__pycache__/any_pb2.cpython-36.pyc (deflated 47%)
+  adding: google/protobuf/__pycache__/symbol_database.cpython-36.pyc (deflated 60%)
+  adding: google/protobuf/__pycache__/type_pb2.cpython-36.pyc (deflated 66%)
+  adding: google/protobuf/__pycache__/descriptor_database.cpython-36.pyc (deflated 56%)
+  adding: google/protobuf/__pycache__/proto_builder.cpython-36.pyc (deflated 44%)
+  adding: google/protobuf/__pycache__/descriptor_pool.cpython-36.pyc (deflated 64%)
+  adding: google/protobuf/__pycache__/api_pb2.cpython-36.pyc (deflated 62%)
+  adding: google/protobuf/__pycache__/service.cpython-36.pyc (deflated 61%)
+  adding: google/protobuf/__pycache__/source_context_pb2.cpython-36.pyc (deflated 48%)
+  adding: google/protobuf/__pycache__/timestamp_pb2.cpython-36.pyc (deflated 49%)
+  adding: google/protobuf/__pycache__/text_encoding.cpython-36.pyc (deflated 48%)
+  adding: google/protobuf/__pycache__/wrappers_pb2.cpython-36.pyc (deflated 64%)
+  adding: google/protobuf/compiler/ (stored 0%)
+  adding: google/protobuf/compiler/__init__.py (stored 0%)
+  adding: google/protobuf/compiler/__pycache__/ (stored 0%)
+  adding: google/protobuf/compiler/__pycache__/__init__.cpython-36.pyc (deflated 17%)
+  adding: google/protobuf/compiler/__pycache__/plugin_pb2.cpython-36.pyc (deflated 64%)
+  adding: google/protobuf/compiler/plugin_pb2.py (deflated 86%)
+  adding: google/protobuf/json_format.py (deflated 77%)
+  adding: google/protobuf/descriptor_pool.py (deflated 78%)
+  adding: six-1.16.0.dist-info/ (stored 0%)
+  adding: six-1.16.0.dist-info/LICENSE (deflated 41%)
+  adding: six-1.16.0.dist-info/RECORD (deflated 35%)
+  adding: six-1.16.0.dist-info/METADATA (deflated 55%)
+  adding: six-1.16.0.dist-info/top_level.txt (stored 0%)
+  adding: six-1.16.0.dist-info/WHEEL (deflated 14%)
+  adding: six-1.16.0.dist-info/INSTALLER (stored 0%)
+  adding: mysql/ (stored 0%)
+  adding: mysql/__init__.py (stored 0%)
+  adding: mysql/connector/ (stored 0%)
+  adding: mysql/connector/version.py (deflated 48%)
+  adding: mysql/connector/connection_cext.py (deflated 76%)
+  adding: mysql/connector/__init__.py (deflated 67%)
+  adding: mysql/connector/utils.py (deflated 72%)
+  adding: mysql/connector/errors.py (deflated 70%)
+  adding: mysql/connector/authentication.py (deflated 75%)
+  adding: mysql/connector/errorcode.py (deflated 71%)
+  adding: mysql/connector/custom_types.py (deflated 49%)
+  adding: mysql/connector/pooling.py (deflated 72%)
+  adding: mysql/connector/optionfiles.py (deflated 73%)
+  adding: mysql/connector/network.py (deflated 78%)
+  adding: mysql/connector/conversion.py (deflated 76%)
+  adding: mysql/connector/protocol.py (deflated 78%)
+  adding: mysql/connector/constants.py (deflated 75%)
+  adding: mysql/connector/charsets.py (deflated 81%)
+  adding: mysql/connector/connection.py (deflated 77%)
+  adding: mysql/connector/abstracts.py (deflated 76%)
+  adding: mysql/connector/cursor_cext.py (deflated 79%)
+  adding: mysql/connector/locales/ (stored 0%)
+  adding: mysql/connector/locales/__init__.py (deflated 52%)
+  adding: mysql/connector/locales/eng/ (stored 0%)
+  adding: mysql/connector/locales/eng/__init__.py (deflated 47%)
+  adding: mysql/connector/locales/eng/client_error.py (deflated 59%)
+  adding: mysql/connector/locales/eng/__pycache__/ (stored 0%)
+  adding: mysql/connector/locales/eng/__pycache__/client_error.cpython-36.pyc (deflated 54%)
+  adding: mysql/connector/locales/eng/__pycache__/__init__.cpython-36.pyc (deflated 10%)
+  adding: mysql/connector/locales/__pycache__/ (stored 0%)
+  adding: mysql/connector/locales/__pycache__/__init__.cpython-36.pyc (deflated 37%)
+  adding: mysql/connector/cursor.py (deflated 79%)
+  adding: mysql/connector/__pycache__/ (stored 0%)
+  adding: mysql/connector/__pycache__/protocol.cpython-36.pyc (deflated 55%)
+  adding: mysql/connector/__pycache__/charsets.cpython-36.pyc (deflated 71%)
+  adding: mysql/connector/__pycache__/conversion.cpython-36.pyc (deflated 61%)
+  adding: mysql/connector/__pycache__/__init__.cpython-36.pyc (deflated 45%)
+  adding: mysql/connector/__pycache__/version.cpython-36.pyc (deflated 26%)
+  adding: mysql/connector/__pycache__/authentication.cpython-36.pyc (deflated 61%)
+  adding: mysql/connector/__pycache__/errorcode.cpython-36.pyc (deflated 63%)
+  adding: mysql/connector/__pycache__/utils.cpython-36.pyc (deflated 59%)
+  adding: mysql/connector/__pycache__/optionfiles.cpython-36.pyc (deflated 52%)
+  adding: mysql/connector/__pycache__/dbapi.cpython-36.pyc (deflated 46%)
+  adding: mysql/connector/__pycache__/pooling.cpython-36.pyc (deflated 58%)
+  adding: mysql/connector/__pycache__/errors.cpython-36.pyc (deflated 57%)
+  adding: mysql/connector/__pycache__/cursor.cpython-36.pyc (deflated 64%)
+  adding: mysql/connector/__pycache__/connection.cpython-36.pyc (deflated 60%)
+  adding: mysql/connector/__pycache__/custom_types.cpython-36.pyc (deflated 40%)
+  adding: mysql/connector/__pycache__/connection_cext.cpython-36.pyc (deflated 58%)
+  adding: mysql/connector/__pycache__/cursor_cext.cpython-36.pyc (deflated 61%)
+  adding: mysql/connector/__pycache__/abstracts.cpython-36.pyc (deflated 62%)
+  adding: mysql/connector/__pycache__/constants.cpython-36.pyc (deflated 64%)
+  adding: mysql/connector/__pycache__/network.cpython-36.pyc (deflated 53%)
+  adding: mysql/connector/dbapi.py (deflated 55%)
+  adding: mysql/connector/django/ (stored 0%)
+  adding: mysql/connector/django/__init__.py (stored 0%)
+  adding: mysql/connector/django/introspection.py (deflated 74%)
+  adding: mysql/connector/django/base.py (deflated 71%)
+  adding: mysql/connector/django/validation.py (deflated 47%)
+  adding: mysql/connector/django/schema.py (deflated 50%)
+  adding: mysql/connector/django/features.py (deflated 50%)
+  adding: mysql/connector/django/operations.py (deflated 61%)
+  adding: mysql/connector/django/compiler.py (deflated 48%)
+  adding: mysql/connector/django/__pycache__/ (stored 0%)
+  adding: mysql/connector/django/__pycache__/operations.cpython-36.pyc (deflated 48%)
+  adding: mysql/connector/django/__pycache__/validation.cpython-36.pyc (deflated 19%)
+  adding: mysql/connector/django/__pycache__/features.cpython-36.pyc (deflated 43%)
+  adding: mysql/connector/django/__pycache__/__init__.cpython-36.pyc (deflated 18%)
+  adding: mysql/connector/django/__pycache__/creation.cpython-36.pyc (deflated 18%)
+  adding: mysql/connector/django/__pycache__/schema.cpython-36.pyc (deflated 35%)
+  adding: mysql/connector/django/__pycache__/client.cpython-36.pyc (deflated 39%)
+  adding: mysql/connector/django/__pycache__/introspection.cpython-36.pyc (deflated 58%)
+  adding: mysql/connector/django/__pycache__/compiler.cpython-36.pyc (deflated 27%)
+  adding: mysql/connector/django/__pycache__/base.cpython-36.pyc (deflated 56%)
+  adding: mysql/connector/django/creation.py (deflated 47%)
+  adding: mysql/connector/django/client.py (deflated 59%)
+  adding: mysql/vendor/ (stored 0%)
+  adding: mysql/vendor/libkrb5support.so.0.1 (deflated 66%)
+  adding: mysql/vendor/libsasl2.so.3.0.0 (deflated 57%)
+  adding: mysql/vendor/libsasl2.so.3 (deflated 57%)
+  adding: mysql/vendor/libcom_err.so.3.0 (deflated 62%)
+  adding: mysql/vendor/libk5crypto.so.3.1 (deflated 74%)
+  adding: mysql/vendor/libkrb5.so.3 (deflated 69%)
+  adding: mysql/vendor/authentication_ldap_sasl_client.so (deflated 58%)
+  adding: mysql/vendor/libkrb5.so.3.3 (deflated 69%)
+  adding: mysql/vendor/libk5crypto.so.3 (deflated 74%)
+  adding: mysql/vendor/libcom_err.so.3 (deflated 62%)
+  adding: mysql/vendor/libgssapi_krb5.so.2.2 (deflated 73%)
+  adding: mysql/vendor/libssl.so.1.1 (deflated 66%)
+  adding: mysql/vendor/libcrypto.so.1.1 (deflated 60%)
+  adding: mysql/vendor/libkrb5support.so.0 (deflated 66%)
+  adding: mysql/vendor/libgssapi_krb5.so.2 (deflated 73%)
+  adding: mysql/vendor/sasl2/ (stored 0%)
+  adding: mysql/vendor/sasl2/libplain.so.3.0.0 (deflated 59%)
+  adding: mysql/vendor/sasl2/libgssapiv2.so (deflated 60%)
+  adding: mysql/vendor/sasl2/libanonymous.so.3.0.0 (deflated 60%)
+  adding: mysql/vendor/sasl2/libdigestmd5.so.3 (deflated 58%)
+  adding: mysql/vendor/sasl2/libcrammd5.so (deflated 60%)
+  adding: mysql/vendor/sasl2/libplain.so.3 (deflated 59%)
+  adding: mysql/vendor/sasl2/libanonymous.so.3 (deflated 60%)
+  adding: mysql/vendor/sasl2/libcrammd5.so.3 (deflated 60%)
+  adding: mysql/vendor/sasl2/libscram.so.3 (deflated 59%)
+  adding: mysql/vendor/sasl2/libdigestmd5.so (deflated 58%)
+  adding: mysql/vendor/sasl2/libdigestmd5.so.3.0.0 (deflated 58%)
+  adding: mysql/vendor/sasl2/libgssapiv2.so.3.0.0 (deflated 60%)
+  adding: mysql/vendor/sasl2/libscram.so (deflated 59%)
+  adding: mysql/vendor/sasl2/libgs2.so (deflated 61%)
+  adding: mysql/vendor/sasl2/libgs2.so.3.0.0 (deflated 61%)
+  adding: mysql/vendor/sasl2/libanonymous.so (deflated 60%)
+  adding: mysql/vendor/sasl2/libcrammd5.so.3.0.0 (deflated 60%)
+  adding: mysql/vendor/sasl2/libplain.so (deflated 59%)
+  adding: mysql/vendor/sasl2/libgs2.so.3 (deflated 61%)
+  adding: mysql/vendor/sasl2/libscram.so.3.0.0 (deflated 59%)
+  adding: mysql/vendor/sasl2/libgssapiv2.so.3 (deflated 60%)
+  adding: mysql/__pycache__/ (stored 0%)
+  adding: mysql/__pycache__/__init__.cpython-36.pyc (deflated 20%)
+  adding: mysqlx/ (stored 0%)
+  adding: mysqlx/__init__.py (deflated 77%)
+  adding: mysqlx/dbdoc.py (deflated 58%)
+  adding: mysqlx/errors.py (deflated 69%)
+  adding: mysqlx/authentication.py (deflated 71%)
+  adding: mysqlx/result.py (deflated 79%)
+  adding: mysqlx/errorcode.py (deflated 71%)
+  adding: mysqlx/helpers.py (deflated 64%)
+  adding: mysqlx/crud.py (deflated 81%)
+  adding: mysqlx/statement.py (deflated 82%)
+  adding: mysqlx/protocol.py (deflated 80%)
+  adding: mysqlx/constants.py (deflated 79%)
+  adding: mysqlx/charsets.py (deflated 81%)
+  adding: mysqlx/connection.py (deflated 79%)
+  adding: mysqlx/locales/ (stored 0%)
+  adding: mysqlx/locales/__init__.py (deflated 52%)
+  adding: mysqlx/locales/eng/ (stored 0%)
+  adding: mysqlx/locales/eng/__init__.py (stored 0%)
+  adding: mysqlx/locales/eng/client_error.py (deflated 59%)
+  adding: mysqlx/locales/eng/__pycache__/ (stored 0%)
+  adding: mysqlx/locales/eng/__pycache__/client_error.cpython-36.pyc (deflated 54%)
+  adding: mysqlx/locales/eng/__pycache__/__init__.cpython-36.pyc (deflated 18%)
+  adding: mysqlx/locales/__pycache__/ (stored 0%)
+  adding: mysqlx/locales/__pycache__/__init__.cpython-36.pyc (deflated 36%)
+  adding: mysqlx/protobuf/ (stored 0%)
+  adding: mysqlx/protobuf/mysqlx_notice_pb2.py (deflated 82%)
+  adding: mysqlx/protobuf/__init__.py (deflated 78%)
+  adding: mysqlx/protobuf/mysqlx_cursor_pb2.py (deflated 76%)
+  adding: mysqlx/protobuf/mysqlx_connection_pb2.py (deflated 78%)
+  adding: mysqlx/protobuf/mysqlx_expect_pb2.py (deflated 75%)
+  adding: mysqlx/protobuf/mysqlx_resultset_pb2.py (deflated 82%)
+  adding: mysqlx/protobuf/mysqlx_sql_pb2.py (deflated 67%)
+  adding: mysqlx/protobuf/mysqlx_session_pb2.py (deflated 76%)
+  adding: mysqlx/protobuf/mysqlx_pb2.py (deflated 79%)
+  adding: mysqlx/protobuf/mysqlx_datatypes_pb2.py (deflated 83%)
+  adding: mysqlx/protobuf/mysqlx_expr_pb2.py (deflated 85%)
+  adding: mysqlx/protobuf/mysqlx_crud_pb2.py (deflated 88%)
+  adding: mysqlx/protobuf/mysqlx_prepare_pb2.py (deflated 79%)
+  adding: mysqlx/protobuf/__pycache__/ (stored 0%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_notice_pb2.cpython-36.pyc (deflated 60%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_cursor_pb2.cpython-36.pyc (deflated 54%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_resultset_pb2.cpython-36.pyc (deflated 60%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_prepare_pb2.cpython-36.pyc (deflated 57%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_datatypes_pb2.cpython-36.pyc (deflated 61%)
+  adding: mysqlx/protobuf/__pycache__/__init__.cpython-36.pyc (deflated 63%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_session_pb2.cpython-36.pyc (deflated 55%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_expect_pb2.cpython-36.pyc (deflated 54%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_connection_pb2.cpython-36.pyc (deflated 57%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_crud_pb2.cpython-36.pyc (deflated 69%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_sql_pb2.cpython-36.pyc (deflated 47%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_expr_pb2.cpython-36.pyc (deflated 63%)
+  adding: mysqlx/protobuf/__pycache__/mysqlx_pb2.cpython-36.pyc (deflated 58%)
+  adding: mysqlx/expr.py (deflated 80%)
+  adding: mysqlx/__pycache__/ (stored 0%)
+  adding: mysqlx/__pycache__/protocol.cpython-36.pyc (deflated 64%)
+  adding: mysqlx/__pycache__/charsets.cpython-36.pyc (deflated 71%)
+  adding: mysqlx/__pycache__/crud.cpython-36.pyc (deflated 70%)
+  adding: mysqlx/__pycache__/expr.cpython-36.pyc (deflated 59%)
+  adding: mysqlx/__pycache__/__init__.cpython-36.pyc (deflated 55%)
+  adding: mysqlx/__pycache__/helpers.cpython-36.pyc (deflated 51%)
+  adding: mysqlx/__pycache__/authentication.cpython-36.pyc (deflated 68%)
+  adding: mysqlx/__pycache__/errorcode.cpython-36.pyc (deflated 63%)
+  adding: mysqlx/__pycache__/dbdoc.cpython-36.pyc (deflated 51%)
+  adding: mysqlx/__pycache__/result.cpython-36.pyc (deflated 66%)
+  adding: mysqlx/__pycache__/errors.cpython-36.pyc (deflated 55%)
+  adding: mysqlx/__pycache__/connection.cpython-36.pyc (deflated 64%)
+  adding: mysqlx/__pycache__/constants.cpython-36.pyc (deflated 75%)
+  adding: mysqlx/__pycache__/statement.cpython-36.pyc (deflated 73%)
+  adding: __pycache__/ (stored 0%)
+  adding: __pycache__/six.cpython-36.pyc (deflated 58%)
+ ---> 41b91ece3be7
+Step 19/23 : WORKDIR /app
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 5429bc68a7fe
+ ---> 9ebf12acec22
+Step 20/23 : RUN rm -rf /app/dependencies
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 0a5306fe4676
+ ---> 7d60b3ae4f6e
+Step 21/23 : COPY --chown=spark:spark *.py /app/
+ ---> fd63dfd33855
+Step 22/23 : ENTRYPOINT spark-submit --verbose  --master local  --conf "spark.jars.ivy=${IVY_PACKAGE_DIR}"      --packages "${SPARK_KAFKA_DEPENDENCY}"  --py-files /app/dependencies.zip      /app/spark-app.py
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 8ae2bf074b9e
+ ---> 71928918ec84
+Step 23/23 : CMD [""]
+ ---> [Warning] The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+ ---> Running in 145e7aac53a6
+ ---> dd0c59692ae5
+Successfully built dd0c59692ae5
+Successfully tagged farberg/popular-slides-spark:latest
+Building [farberg/popular-slides]...
+Sending build context to Docker daemon  37.38kB
+Step 1/11 : FROM node:slim
+slim: Pulling from library/node
+fcad0c936ea5: Pulling fs layer
+ba31e746b077: Pulling fs layer
+d63a5a2ff999: Pulling fs layer
+11c147b94f15: Pulling fs layer
+d483071aacbb: Pulling fs layer
+11c147b94f15: Waiting
+d483071aacbb: Waiting
+ba31e746b077: Verifying Checksum
+ba31e746b077: Download complete
+11c147b94f15: Verifying Checksum
+11c147b94f15: Download complete
+fcad0c936ea5: Verifying Checksum
+fcad0c936ea5: Download complete
+d483071aacbb: Verifying Checksum
+d483071aacbb: Download complete
+d63a5a2ff999: Verifying Checksum
+d63a5a2ff999: Download complete
+fcad0c936ea5: Pull complete
+ba31e746b077: Pull complete
+d63a5a2ff999: Pull complete
+11c147b94f15: Pull complete
+d483071aacbb: Pull complete
+Digest: sha256:1cbbfa0193053662b2d309535485e3275db136bf680fb1c931fe3578197e1645
+Status: Downloaded newer image for node:slim
+ ---> c89edf58a7e8
+Step 2/11 : LABEL maintainer="Dennis Pfisterer, http://dennis-pfisterer.de"
+ ---> Running in 658bca16caa9
+ ---> 379a16102d04
+Step 3/11 : ARG NODE_ENV=production
+ ---> Running in 92292a140754
+ ---> 9dd2e2545559
+Step 4/11 : ENV NODE_ENV $NODE_ENV
+ ---> Running in 8c7e25d31a57
+ ---> bc32370a765d
+Step 5/11 : WORKDIR /app
+ ---> Running in ac87b6a609bf
+ ---> c2f8c0c40ecd
+Step 6/11 : COPY package.json package-lock.json /app/
+ ---> b24b492edaf4
+Step 7/11 : RUN npm install --no-optional && npm cache clean --force
+ ---> Running in 079453a0e9cd
+
+added 77 packages, and audited 78 packages in 3s
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+npm notice 
+npm notice New minor version of npm available! 7.15.1 -> 7.17.0
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.17.0>
+npm notice Run `npm install -g npm@7.17.0` to update!
+npm notice 
+npm WARN using --force Recommended protections disabled.
+npm notice 
+npm notice New minor version of npm available! 7.15.1 -> 7.17.0
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.17.0>
+npm notice Run `npm install -g npm@7.17.0` to update!
+npm notice 
+ ---> 0ac9a4071c47
+Step 8/11 : COPY *.js /app/
+ ---> 2582ec495b35
+Step 9/11 : EXPOSE 3000
+ ---> Running in 2f3bb3ddca3c
+ ---> bc5e32cf6915
+Step 10/11 : ENTRYPOINT ["node", "index.js"]
+ ---> Running in 8767e3a129bd
+ ---> 7645d6137f3b
+Step 11/11 : CMD [""]
+ ---> Running in 37585cd41ea2
+ ---> 263d34d5b231
+Successfully built 263d34d5b231
+Successfully tagged farberg/popular-slides:latest
+Starting test...
+Tags used in deployment:
+ - farberg/popular-slides -> farberg/popular-slides:263d34d5b231d3fda38d4597d6cfb76ee3ecb16f8cb0ba67647fa5c102c9220b
+ - farberg/popular-slides-spark -> farberg/popular-slides-spark:dd0c59692ae5e933cbc60ef9aeda63fa8d0a0a3e6c88a237b7051296272e41af
+Starting deploy...
+ - deployment.apps/memcache-deployment created
+ - service/my-memcached-service created
+ - configmap/mysql-deployment-init-configmap created
+ - deployment.apps/mysql-deployment created
+ - service/my-app-mysql-service created
+ - deployment.apps/popular-slides created
+ - service/popular-slides-service created
+ - ingress.networking.k8s.io/popular-slides-ingress created
+ - configmap/popular-slides-spark-hadoop-conf created
+ - deployment.apps/popular-slides-spark created
+Waiting for deployments to stabilize...
+ - deployment/popular-slides is ready. [3/4 deployment(s) still pending]
+ - deployment/popular-slides-spark is ready. [2/4 deployment(s) still pending]
+ - deployment/memcache-deployment: creating container my-memcached
+    - pod/memcache-deployment-7dd75f884f-89xvg: creating container my-memcached
+    - pod/memcache-deployment-7dd75f884f-5zs7h: creating container my-memcached
+ - deployment/mysql-deployment: creating container my-mysql
+    - pod/mysql-deployment-7fccff4cbc-llqrm: creating container my-mysql
+ - deployment/mysql-deployment: container my-mysql is waiting to start: mysql can't be pulled
+    - pod/mysql-deployment-7fccff4cbc-llqrm: container my-mysql is waiting to start: mysql can't be pulled
+ - deployment/mysql-deployment failed. Error: container my-mysql is waiting to start: mysql can't be pulled.
+Cleaning up...
+ - deployment.apps "memcache-deployment" deleted
+ - service "my-memcached-service" deleted
+ - configmap "mysql-deployment-init-configmap" deleted
+ - deployment.apps "mysql-deployment" deleted
+ - service "my-app-mysql-service" deleted
+ - deployment.apps "popular-slides" deleted
+ - service "popular-slides-service" deleted
+ - ingress.networking.k8s.io "popular-slides-ingress" deleted
+ - configmap "popular-slides-spark-hadoop-conf" deleted
+ - deployment.apps "popular-slides-spark" deleted
+2/4 deployment(s) failed
+yannikhubrich@MacBook-Pro use-case % skaffold dev
+Listing files to watch...
+ - farberg/popular-slides
+ - farberg/popular-slides-spark
+Generating tags...
+ - farberg/popular-slides -> farberg/popular-slides:latest
+ - farberg/popular-slides-spark -> farberg/popular-slides-spark:latest
+Some taggers failed. Rerun with -vdebug for errors.
+Checking cache...
+ - farberg/popular-slides: Found Locally
+ - farberg/popular-slides-spark: Found Locally
+Starting test...
+Tags used in deployment:
+ - farberg/popular-slides -> farberg/popular-slides:263d34d5b231d3fda38d4597d6cfb76ee3ecb16f8cb0ba67647fa5c102c9220b
+ - farberg/popular-slides-spark -> farberg/popular-slides-spark:dd0c59692ae5e933cbc60ef9aeda63fa8d0a0a3e6c88a237b7051296272e41af
+Starting deploy...
+ - deployment.apps/memcache-deployment created
+ - service/my-memcached-service created
+ - configmap/mysql-deployment-init-configmap created
+ - deployment.apps/mysql-deployment created
+ - service/my-app-mysql-service created
+ - deployment.apps/popular-slides created
+ - service/popular-slides-service created
+ - ingress.networking.k8s.io/popular-slides-ingress created
+ - configmap/popular-slides-spark-hadoop-conf created
+ - deployment.apps/popular-slides-spark created
+Waiting for deployments to stabilize...
+ - deployment/memcache-deployment: creating container my-memcached
+    - pod/memcache-deployment-5f6567c4cd-lwl58: creating container my-memcached
+    - pod/memcache-deployment-5f6567c4cd-srtw8: creating container my-memcached
+ - deployment/mysql-deployment: creating container my-mysql
+    - pod/mysql-deployment-8496b97cbb-fkv4b: creating container my-mysql
+ - deployment/popular-slides: creating container popular-slides-web
+    - pod/popular-slides-6586445864-2td4d: creating container popular-slides-web
+ - deployment/popular-slides-spark: creating container popular-slides-spark
+    - pod/popular-slides-spark-cb8747f97-4ztsf: creating container popular-slides-spark
+ - deployment/popular-slides-spark is ready. [3/4 deployment(s) still pending]
+ - deployment/memcache-deployment: creating container my-memcached
+    - pod/memcache-deployment-5f6567c4cd-lwl58: creating container my-memcached
+ - deployment/popular-slides is ready. [2/4 deployment(s) still pending]
+ - deployment/memcache-deployment is ready. [1/4 deployment(s) still pending]
+ - deployment/mysql-deployment: container my-mysql is waiting to start: mysql can't be pulled
+    - pod/mysql-deployment-8496b97cbb-fkv4b: container my-mysql is waiting to start: mysql can't be pulled
+ - deployment/mysql-deployment failed. Error: container my-mysql is waiting to start: mysql can't be pulled.
+Cleaning up...
+ - deployment.apps "memcache-deployment" deleted
+ - service "my-memcached-service" deleted
+ - configmap "mysql-deployment-init-configmap" deleted
+ - deployment.apps "mysql-deployment" deleted
+ - service "my-app-mysql-service" deleted
+ - deployment.apps "popular-slides" deleted
+ - service "popular-slides-service" deleted
+ - ingress.networking.k8s.io "popular-slides-ingress" deleted
+ - configmap "popular-slides-spark-hadoop-conf" deleted
+ - deployment.apps "popular-slides-spark" deleted
+1/4 deployment(s) failed
