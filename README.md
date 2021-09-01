@@ -13,6 +13,8 @@ haben im Rahmen der Vorlesungsreihe "Big Data" ein Movie Recommendation System h
 
 Hierfür wurden die in den Vorlesungen kennengelernten Architekturen verwendet. Die Berechnung der beliebtesten Filme wird über Spark realisiert. In einer MySQL Datenbank werden alle Filme inklusive Genre, Originalsprache und eines Bildes gespeichert. Die Web-App wurde in der Datei index.js gebaut. Die Daten werden per Batch abgearbeitet und die Ergebnisse in der Datenbank gespeichert, auf die dann der Webserver zugreift und schließlich die Ergebnisse in der Web-App anzeigt. 
 
+![Screenshot 2021-09-01 at 20 53 34](https://user-images.githubusercontent.com/75441806/131727660-5ae7d676-53e8-4222-a717-84292a6bb826.png)
+
 **************************
 
 **Technische Komponenten**
