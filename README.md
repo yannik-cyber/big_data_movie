@@ -60,7 +60,7 @@ Die Node.js App greift regelmäßig auf die "popular"-Tabelle zu und gibt somit 
 **Hinweise zur Ausführung**
 
 
-Um das Recommendation System zu starten, ist es zunächst notwendig die auf github abgelegte zip-Datei herunterzuladen und abzuspeichern.
+Um das Recommendation System zu starten, ist es zunächst notwendig den Code als zip-Datei herunterzuladen und abzuspeichern.
 Mithilfe einer shell muss dann zum Ordner hinnavigiert werden, wo das Projekt abgespeichert wurde.
 
 Stellen Sie vorher sicher, dass sie die folgenden Prerequisites ausgeführt haben.
