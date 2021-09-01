@@ -426,7 +426,7 @@ app.get("/genre/:genre", (req, res) => {
 		<a href='/'>
 			<h2> Back </h2>
 		</a>
-		<h2 style="color:white;">If <b>${genre}</b> is your favourite genre, you also should watch following movies:</h1>
+		<h2 style="color:white;">If <b>${genre}</b> is your favourite genre, you also should watch following movies:</h2>
 		<div class="container"> ${genremoviesHtml} </div>`
 		sendResponse(res, genrehtml, data.cached)
 	}).catch(err => {
