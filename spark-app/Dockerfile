@@ -56,17 +56,6 @@ RUN rm -rf /app/dependencies
 # Copy application code
 COPY --chown=spark:spark *.py /app/
 
-#------------------------------------
-# Set entrypoint and use dependencies zip file
-
-# Use YARN deployment in client mode (requires Hadoop config)
-# --master yarn --deploy-mode client"
-
-# Use YARN deployment in cluster mode (requires Hadoop config)
-# --master yarn --deploy-mode cluster
-
-# Use local deployment
-# --master local
 
 ENTRYPOINT spark-submit --verbose \
 	--master local \
