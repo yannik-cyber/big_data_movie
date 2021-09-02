@@ -88,3 +88,13 @@ Mit `skaffold delete` beenden Sie alle Kubernetes Ressourcen in diesem Projekt.
 Bei Rückfragen oder Problemen beim Ausführen unseres Projektes, helfen wir Ihnen gerne weiter!
 Unsere Gruppe führt die App nicht lokal, sondern über einen Server aus. Sollten Sie dies auch wollen, lassen wir Ihnen gerne die Proxy-Einstellungen zukommen.
 
+
+
+
+
+*************
+
+
+**Screencast**
+
+Unseren Screencast können Sie hier abrufen: https://www.dropbox.com/sh/toyl9k7ppoah7tg/AAD0RCbYNKYhTDU9kppQZVRZa?dl=0
